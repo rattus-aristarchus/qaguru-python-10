@@ -1,61 +1,47 @@
 from selene import browser, be, have
 
+from tests.registration_page import RegistrationPage
+from src.data import users
+
 
 def test_practice_form(setup_browser):
-    # the values we're testing
-    name = "test_name"
-    last_name = "test_last_name"
-    email = "test@gmail.com"
-    gender = "Female"
-    number = "0123456789"
-    date_of_birth = "01 January,1942"
-    subject_0 = "History"
-    subject_1 = "Maths"
-    hobbies = "Reading, Music"
-    address = "Some-street, Some-house, Some-apartment"
-    state = "Haryana"
-    city = "Panipat"
+    page = RegistrationPage()
+    test_user = users.test_user
 
-    browser.open("/automation-practice-form")
+    page.open()
+    page.set_name(test_user.name)
+    page.set_last_name(test_user.last_name)
+    page.set_email(test_user.email)
 
     # fill in the basic stuff
-    browser.element("#firstName").type(name)
-    browser.element("#lastName").type(last_name)
-    browser.element("#userEmail").type(email)
-    browser.element('[for="gender-radio-2"]').click()
-    browser.element("#userNumber").type(number)
 
-    # fill in the date
-    browser.element("#dateOfBirthInput").click()
-    browser.element(".react-datepicker__month-select").click()
-    browser.element(".react-datepicker__month-select [value='0']").click()
-    browser.element(".react-datepicker__year-select").click()
-    browser.element(".react-datepicker__year-select [value='1942']").click()
-    browser.element(".react-datepicker__day.react-datepicker__day--001").click()
+    page.set_gender(test_user.gender)
+    page.set_number(test_user.number)
+    page.set_birthday(test_user.year_of_birth, test_user.month_of_birth, test_user.day_of_birth)
 
     # fill in the hobbies
-    browser.element("#subjectsInput").type(subject_0).press_enter()
-    browser.element("#subjectsInput").type(subject_1).press_enter()
-    browser.element('[for="hobbies-checkbox-2"]').click()
-    browser.element('[for="hobbies-checkbox-3"]').click()
+    page.add_interest(test_user.subject_0)
+    page.add_interest(test_user.subject_1)
+    page.add_hobby(test_user.hobby_0)
+    page.add_hobby(test_user.hobby_1)
 
     # fill in the full address
-    browser.element("#currentAddress").type(address)
-    browser.element("#react-select-3-input").type(state).press_enter()
-    browser.element("#react-select-4-input").type(city).press_enter()
+    page.set_address(test_user.address)
+    page.set_state(test_user.state)
+    page.set_city(test_user.city)
 
-    browser.element("#submit").press_enter()
+    page.submit()
 
     # now, check it all
-    browser.element(".table").should(have.text(name))
-    browser.element(".table").should(have.text(last_name))
-    browser.element(".table").should(have.text(email))
-    browser.element(".table").should(have.text(gender))
-    browser.element(".table").should(have.text(number))
-    browser.element(".table").should(have.text(date_of_birth))
-    browser.element(".table").should(have.text(subject_0))
-    browser.element(".table").should(have.text(subject_1))
-    browser.element(".table").should(have.text(hobbies))
-    browser.element(".table").should(have.text(address))
-    browser.element(".table").should(have.text(state))
-    browser.element(".table").should(have.text(city))
+    page.should_register_user_with(test_user.name,
+                                   test_user.last_name,
+                                   test_user.email,
+                                   test_user.gender,
+                                   test_user.number,
+                                   test_user.date_of_birth,
+                                   test_user.subject_0,
+                                   test_user.subject_1,
+                                   test_user.hobbies,
+                                   test_user.address,
+                                   test_user.state,
+                                   test_user.city)
