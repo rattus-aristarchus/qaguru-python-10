@@ -20,10 +20,10 @@ def test_practice_form(setup_browser):
     page.set_birthday(test_user.year_of_birth, test_user.month_of_birth, test_user.day_of_birth)
 
     # fill in the hobbies
-    page.add_interest(test_user.subject_0)
-    page.add_interest(test_user.subject_1)
-    page.add_hobby(test_user.hobby_0)
-    page.add_hobby(test_user.hobby_1)
+    page.add_interest(test_user.subjects[0])
+    page.add_interest(test_user.subjects[1])
+    page.add_hobby(test_user.hobbies[0])
+    page.add_hobby(test_user.hobbies[1])
 
     # fill in the full address
     page.set_address(test_user.address)
@@ -39,9 +39,8 @@ def test_practice_form(setup_browser):
                                    test_user.gender,
                                    test_user.number,
                                    test_user.date_of_birth,
-                                   test_user.subject_0,
-                                   test_user.subject_1,
-                                   test_user.hobbies,
+                                   test_user.subjects_str,
+                                   test_user.hobbies_str,
                                    test_user.address,
                                    test_user.state,
                                    test_user.city)

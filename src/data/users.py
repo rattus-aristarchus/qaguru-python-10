@@ -1,5 +1,6 @@
 import dataclasses
 
+
 @dataclasses.dataclass
 class User:
     name: str
@@ -10,15 +11,27 @@ class User:
     day_of_birth: str
     month_of_birth: str
     year_of_birth: str
-    date_of_birth: str
-    subject_0: str
-    subject_1: str
-    hobby_0: str
-    hobby_1: str
-    hobbies: str
+    subjects: list
+    hobbies: list
     address: str
     state: str
     city: str
+
+    @property
+    def date_of_birth(self):
+        if len(self.day_of_birth) < 2:
+            day_string = "0" + self.day_of_birth
+        else:
+            day_string = self.day_of_birth
+        return f"{day_string} {self.month_of_birth},{self.year_of_birth}"
+
+    @property
+    def subjects_str(self):
+        return ", ".join(self.subjects)
+
+    @property
+    def hobbies_str(self):
+        return ", ".join(self.hobbies)
 
 
 test_user = User(
@@ -30,12 +43,8 @@ test_user = User(
     day_of_birth="1",
     month_of_birth="January",
     year_of_birth="1942",
-    date_of_birth="01 January,1942",
-    subject_0="History",
-    subject_1="Maths",
-    hobby_0="Reading",
-    hobby_1="Music",
-    hobbies="Reading, Music",
+    subjects=["History", "Maths"],
+    hobbies=["Reading", "Music"],
     address="Some-street, Some-house, Some-apartment",
     state="Haryana",
     city="Panipat"
