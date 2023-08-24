@@ -68,7 +68,7 @@ class RegistrationPage:
 
     def _set_birthday(self, date_of_birth):
         browser.element("#dateOfBirthInput").click()
-        browser.element(".react-datepicker__year-select").type(str(date_of_birth.year))
+        browser.element(".react-datepicker__year-select").type(date_of_birth.strftime("%Y"))
         browser.element(".react-datepicker__month-select").type(date_of_birth.strftime("%B"))
         browser.element(
             f".react-datepicker__day.react-datepicker__day--00{date_of_birth.day}"
