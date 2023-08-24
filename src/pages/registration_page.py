@@ -20,7 +20,7 @@ class RegistrationPage:
 
         self._set_gender(user.gender)
         self._set_number(user.number)
-        self._set_birthday(user.year_of_birth, user.month_of_birth, user.day_of_birth)
+        self._set_birthday(user.date_of_birth)
 
         # fill in the hobbies
         self._add_interest(user.subjects[0])
@@ -41,7 +41,7 @@ class RegistrationPage:
                                       user.email,
                                       user.gender,
                                       user.number,
-                                      user.date_of_birth,
+                                      user.date_of_birth_str,
                                       user.subjects_str,
                                       user.hobbies_str,
                                       user.address,
@@ -66,12 +66,12 @@ class RegistrationPage:
     def _set_email(self, email):
         browser.element("#userEmail").type(email)
 
-    def _set_birthday(self, year, month, day):
+    def _set_birthday(self, date_of_birth):
         browser.element("#dateOfBirthInput").click()
-        browser.element(".react-datepicker__year-select").type(year)
-        browser.element(".react-datepicker__month-select").type(month)
+        browser.element(".react-datepicker__year-select").type(str(date_of_birth.year))
+        browser.element(".react-datepicker__month-select").type(date_of_birth.strftime("%B"))
         browser.element(
-            f".react-datepicker__day.react-datepicker__day--00{day}"
+            f".react-datepicker__day.react-datepicker__day--00{date_of_birth.day}"
         ).click()
 
     def _add_interest(self, subject):

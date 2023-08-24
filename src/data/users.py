@@ -1,4 +1,5 @@
 import dataclasses
+import datetime
 
 
 @dataclasses.dataclass
@@ -8,9 +9,7 @@ class User:
     email: str
     gender: str
     number: str
-    day_of_birth: str
-    month_of_birth: str
-    year_of_birth: str
+    date_of_birth: datetime.date
     subjects: list
     hobbies: list
     address: str
@@ -18,12 +17,15 @@ class User:
     city: str
 
     @property
-    def date_of_birth(self):
-        if len(self.day_of_birth) < 2:
-            day_string = "0" + self.day_of_birth
-        else:
-            day_string = self.day_of_birth
-        return f"{day_string} {self.month_of_birth},{self.year_of_birth}"
+    def date_of_birth_str(self):
+     #   if len(self.day_of_birth) < 2:
+   #         day_string = "0" + self.day_of_birth
+     #   else:
+     #       day_string = self.day_of_birth
+
+        return self.date_of_birth.strftime("%d %B,%Y")
+      #  return datetime.strftime()
+     #   return f"{day_string} {self.month_of_birth},{self.year_of_birth}"
 
     @property
     def subjects_str(self):
@@ -40,9 +42,7 @@ test_user = User(
     email="test@gmail.com",
     gender="Female",
     number="0123456789",
-    day_of_birth="1",
-    month_of_birth="January",
-    year_of_birth="1942",
+    date_of_birth=datetime.date(1942, 1, 1),
     subjects=["History", "Maths"],
     hobbies=["Reading", "Music"],
     address="Some-street, Some-house, Some-apartment",
