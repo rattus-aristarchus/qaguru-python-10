@@ -1,6 +1,11 @@
 import dataclasses
 import datetime
+from enum import StrEnum
 
+class Hobby(StrEnum):
+    SPORTS = "Sports"
+    READING = "Reading"
+    MUSIC = "Music"
 
 @dataclasses.dataclass
 class User:
@@ -18,14 +23,7 @@ class User:
 
     @property
     def date_of_birth_str(self):
-     #   if len(self.day_of_birth) < 2:
-   #         day_string = "0" + self.day_of_birth
-     #   else:
-     #       day_string = self.day_of_birth
-
         return self.date_of_birth.strftime("%d %B,%Y")
-      #  return datetime.strftime()
-     #   return f"{day_string} {self.month_of_birth},{self.year_of_birth}"
 
     @property
     def subjects_str(self):
@@ -44,7 +42,7 @@ test_user = User(
     number="0123456789",
     date_of_birth=datetime.date(1942, 1, 1),
     subjects=["History", "Maths"],
-    hobbies=["Reading", "Music"],
+    hobbies=[Hobby.READING, Hobby.MUSIC],
     address="Some-street, Some-house, Some-apartment",
     state="Haryana",
     city="Panipat"
