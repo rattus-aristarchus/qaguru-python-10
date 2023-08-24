@@ -1,6 +1,4 @@
-from selene import browser, be, have
-
-from tests.registration_page import RegistrationPage
+from src.pages.registration_page import RegistrationPage
 from src.data import users
 
 
