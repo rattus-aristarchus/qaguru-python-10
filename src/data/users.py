@@ -1,13 +1,16 @@
-import dataclasses
+from dataclasses import dataclass
 import datetime
+from strenum import StrEnum
 from enum import StrEnum
+
 
 class Hobby(StrEnum):
     SPORTS = "Sports"
     READING = "Reading"
     MUSIC = "Music"
 
-@dataclasses.dataclass
+
+@dataclass
 class User:
     name: str
     last_name: str
